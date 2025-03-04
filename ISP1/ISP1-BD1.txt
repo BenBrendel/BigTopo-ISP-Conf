@@ -1,1 +1,79 @@
 !==
+en
+conf t
+hostname ISP-BD1
+ip domain name ISP1
+username cisco priv 15 algo scrypt secret cisco
+crypto key gen rsa mod 4096 usage
+ip ssh version 2
+
+end
+en
+conf t
+no ip domain-lookup
+
+
+int fa0/1
+no shut
+
+int fa0/1.1
+des to_ISP1-BD2_vlan1
+ip add 10.0.1.0 255.255.255.254
+no shut
+
+int fa0/1.2
+des to_ISP1-BD3_vlan2
+ip add 10.0.1.2 255.255.255.254
+no shut
+
+int fa0/1.3
+des to_ISP1-BD4_vlan3
+ip add 10.0.1.2 255.255.255.254
+no shut
+
+int fa0/1.4
+des to_ISP1-BD5_vlan4
+ip add 10.0.1.14 255.255.255.254
+no shut
+
+router isis
+net 49.0001.0000.0000.0001.00 
+is-type level-1
+log-adjacency-changes
+end
+conf t
+mpls ip
+
+interface range fa0/1.1-4
+ip router isis
+mpls ip
+end
+conf t
+
+int lo1
+ip add 192.168.1.1 255.255.255.255
+ip router isis
+mpls ip
+no shut
+
+end
+conf t
+
+router bgp 1
+neighbor 192.168.1.2 remote-as 1
+neighbor 192.168.1.2 update-source lo1
+
+neighbor 192.168.1.3 remote-as 1
+neighbor 192.168.1.3 update-source lo1
+
+neighbor 192.168.1.4 remote-as 1
+neighbor 192.168.1.4 update-source lo1
+
+neighbor 192.168.1.5 remote-as 1
+neighbor 192.168.1.5 update-source lo1
+
+
+
+
+
+
