@@ -15,3 +15,12 @@ no ip domain-lookup
 
 int fa0/1
 no shut
+
+end
+conf t
+
+int lo1
+ip add 192.168.1.2 255.255.255.255
+ip router isis
+mpls ip
+no shut
