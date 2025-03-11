@@ -30,8 +30,8 @@ int g0/1
 no shut
 exit
 
-
-ip address 10.0.2.1 255.255.255.254 
+int g0/1.
+ip address 10.0.2.5 255.255.255.254 
 ip authentication mode eigrp 100 md5 
 ip authentication key-chain eigrp 100 eigrp-chain 
 no shut 
