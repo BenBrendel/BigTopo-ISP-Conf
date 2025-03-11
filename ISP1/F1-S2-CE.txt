@@ -1,0 +1,47 @@
+!###########################
+!DIE INTERFACES MUESSEN NOCH GEÄNDERT WERDEN 
+!###########################
+
+en
+conf t
+hostname F1-S2-CE
+ip domain name F1
+username cisco priv 15 secret cisco
+crypto key generate rsa modulus 2048 usage-keys
+ip ssh version 2
+
+int f0/0
+ip add 31.6.14.190 255.255.255.192
+no shut
+
+int f0/1
+ip add 103.152.126.43 255.255.255.254
+no shut
+
+!###########################
+! DMVPN CONFIG (SPOKE)
+!###########################
+
+interface Tunnel0
+ip address 172.16.0.2 255.255.0.0
+ip nhrp authentication DMVPN
+ip nhrp map 172.16.0.1 103.152.126.41
+ip nhrp map multicast 103.152.126.41
+ip nhrp network-id 1
+ip nhrp nhs 172.16.0.1
+tunnel source f0/1
+tunnel destination 103.152.126.41
+
+interface Tunnel 0
+ip nhrp shortcut
+
+
+!###########################
+! OSPF OVERLAY
+!###########################
+
+int Tunnel0 
+ip ospf network point-to-multipoint
+router ospf 10
+network 172.16.0.0 0.0.255.255 area 10
+network 31.6.14.128 0.0.0.63 area 10
