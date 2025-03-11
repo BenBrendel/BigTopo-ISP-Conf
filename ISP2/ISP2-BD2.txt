@@ -27,10 +27,12 @@ exec-timeout 0 0
 !------------
 
 int g0/1 
+desc Intern
 no shut
 exit
 
 int g0/1.1
+desc to_ISP2-BD1
 encapsulation dot1q 1
 ip address 10.0.2.1 255.255.255.254 
 ip authentication mode eigrp 100 md5 
@@ -39,6 +41,7 @@ no shut
 
 
 int g0/1.4
+desc to_ISP2-BD4
 encapsulation dot1q 4
 ip address 10.0.2.6 255.255.255.254
 ip authentication mode eigrp 100 md5 
@@ -46,6 +49,7 @@ ip authentication key-chain eigrp 100 eigrp-chain
 no shut 
 
 int g0/1.15
+desc to_ISP2-BB1
 encapsulation dot1q 15
 ip address 10.0.2.18 255.255.255.248 
 ip authentication mode eigrp 100 md5 
