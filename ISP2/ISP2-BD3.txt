@@ -93,7 +93,7 @@ exit
 router eigrp 100 
 network 10.0.2.4 0.0.0.1 
 network 10.0.2.2 0.0.0.1 
-network 10.0.2.10 0.0.0.7
+network 10.0.2.10 0.0.0.1
 network 192.168.22.3 0.0.0.0 
 passive-interface g0/0
 passive-interface f0/1/0
@@ -111,7 +111,7 @@ router bgp 22.2
  network 103.152.126.20 mask 255.255.255.254
  neighbor 103.152.126.2 remote-as 1
  neighbor 103.152.126.2 update-source g0/0
- neighbor 103.152.126.2 remote-as 4
+ neighbor 103.152.126.21 remote-as 4
  neighbor 103.152.126.21 update-source f0/1/0
  neighbor 192.168.2.1 remote-as 22.2 
  neighbor 192.168.2.1 update-source lo1
