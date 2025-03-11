@@ -30,19 +30,37 @@ int g0/1
 no shut
 exit
 
-int g0/1.
-ip address 10.0.2.5 255.255.255.254 
+int g0/1.1
+encapsulation dot1q 1
+ip address 10.0.2.1 255.255.255.254 
 ip authentication mode eigrp 100 md5 
 ip authentication key-chain eigrp 100 eigrp-chain 
 no shut 
 
- 
 
-int g0/2 
+int g0/1.4
+encapsulation dot1q 4
+ip address 10.0.2.6 255.255.255.254
+ip authentication mode eigrp 100 md5 
+ip authentication key-chain eigrp 100 eigrp-chain 
+no shut 
+
+int g0/1.15
+encapsulation dot1q 15
 ip address 10.0.2.18 255.255.255.248 
 ip authentication mode eigrp 100 md5 
 ip authentication key-chain eigrp 100 eigrp-chain 
 no shut 
+
+int g0/0
+desc to_MaxSec
+ip address 103.152.126.40 255.255.255.254
+no shut
+
+int f0/1/0
+desc to_mci
+ip address 103.152.126.100 255.255.255.254
+no shut
 
 int lo1
 ip address 192.168.2.2 255.255.255.255 
@@ -64,31 +82,35 @@ ip nhrp nhs 172.16.2.1
 ip nhrp shortcut 
 ip nhrp map 172.16.2.1 192.168.22.1 
 ip nhrp map multicast 192.168.22.1 
-tunnel source lo1 
+tunnel source lo0
 ip ospf network point-to-multipoint 
 exit 
 
 router eigrp 100 
 network 10.0.2.0 0.0.0.1 
-network 10.0.2.16 0.0.0.1 
+network 10.0.2.6 0.0.0.1 
+network 10.0.2.16 0.0.0.7
 network 192.168.22.2 0.0.0.0 
-passive-interface g0/0 
+passive-interface g0/1
+passive-interface f0/1/0
 
 router ospf 1 
 router-id 192.168.22.2 
 network 172.16.2.0 0.0.0.255 area 0 
 network 192.168.2.2 0.0.0.0 area 0 
 passive-interface g0/0 
-
+passive-interface f0/1/0
  
 
 router bgp 22.2 
+ network 103.152.126.40 mask 255.255.255.254
+ network 103.152.126.100 mask 255.255.255.254
  neighbor 192.168.2.1 remote-as 22.2 
- neighbor 192.168.2.1 update-source lo1 
+ neighbor 192.168.2.1 update-source lo1
  neighbor 192.168.2.3 remote-as 22.2 
  neighbor 192.168.2.3 update-source lo1
-
-
+ neighbor 192.168.2.4 remote-as 22.2 
+ neighbor 192.168.2.4 update-source lo1
 
 end 
 wr 
