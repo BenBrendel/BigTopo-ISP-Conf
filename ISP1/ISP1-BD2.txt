@@ -3,8 +3,8 @@ en
 conf t
 hostname ISP-BD2
 ip domain name ISP1
-username cisco priv 15 algo scrypt secret cisco
-crypto key gen rsa mod 4096 usage
+username cisco priv 15 secret cisco
+crypto key generate rsa modulus 2048 usage-keys
 ip ssh version 2
 
 end
@@ -50,6 +50,37 @@ mpls ip
 no shut
 
 
+interface range fa0/1.1
+ip router isis
+mpls ip
+end
+conf t
+interface range fa0/1.5
+ip router isis
+mpls ip
+end
+conf t
+interface range fa0/1.6
+ip router isis
+mpls ip
+end
+conf t
+interface range fa0/1.7
+ip router isis
+mpls ip
+end
+conf t
+
+router isis
+net 49.0001.0000.0000.0002.00 
+is-type level-1
+log-adjacency-changes
+end
+conf t
+mpls ip
+
+
+
 
 router bgp 1
 neighbor 192.168.1.1 remote-as 1
@@ -63,3 +94,10 @@ neighbor 192.168.1.4 update-source lo1
 
 neighbor 192.168.1.5 remote-as 1
 neighbor 192.168.1.5 update-source lo1
+
+
+# FUER SPAETER 
+router bgp 1
+network 103.152.126.0 255.255.255.240
+neighbor 103.152.126.0 remote-as 22.2
+neighbor 103.152.126.0 update-source INTERFACES HERAUSFINDE
