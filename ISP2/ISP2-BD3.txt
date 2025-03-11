@@ -27,43 +27,45 @@ exec-timeout 0 0
 !------------
 
 int g0/1 
+desc Intern
 no shut
 exit
 
-int g0/1.1
-encapsulation dot1q 1
-ip address 10.0.2.1 255.255.255.254 
+int g0/1.2
+desc to_ISP2-BD1
+encapsulation dot1q 2
+ip address 10.0.2.5 255.255.255.254 
 ip authentication mode eigrp 100 md5 
 ip authentication key-chain eigrp 100 eigrp-chain 
 no shut 
 
 
-int g0/1.4
-encapsulation dot1q 4
-ip address 10.0.2.6 255.255.255.254
+int g0/1.5
+encapsulation dot1q 5
+ip address 10.0.2.2 255.255.255.254
 ip authentication mode eigrp 100 md5 
 ip authentication key-chain eigrp 100 eigrp-chain 
 no shut 
 
-int g0/1.15
-encapsulation dot1q 15
-ip address 10.0.2.18 255.255.255.248 
+int g0/1.6
+encapsulation dot1q 6
+ip address 10.0.2.11 255.255.255.254
 ip authentication mode eigrp 100 md5 
 ip authentication key-chain eigrp 100 eigrp-chain 
 no shut 
 
 int g0/0
-desc to_MaxSec
-ip address 103.152.126.40 255.255.255.254
+desc to_ISP1
+ip address 103.152.126.3 255.255.255.254
 no shut
 
 int f0/1/0
-desc to_mci
-ip address 103.152.126.100 255.255.255.254
+desc to_ISP4
+ip address 103.152.126.20 255.255.255.254
 no shut
 
 int lo1
-ip address 192.168.2.2 255.255.255.255 
+ip address 192.168.2.3 255.255.255.255 
 exit 
 
 int lo0
