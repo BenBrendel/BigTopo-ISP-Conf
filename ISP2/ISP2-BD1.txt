@@ -28,7 +28,7 @@ exec-timeout 0 0
 
 int g0/0
 desc to_ISP1
-ip address 103.152.126.20 255.255.255.254
+ip address 103.152.126.1 255.255.255.254
 no shut
 
 int g0/1
@@ -97,9 +97,9 @@ network 192.168.2.1 0.0.0.0 area 0
 passive-interface g0/0
 
 router bgp 22.2
-network 103.152.126.20 mask 255.255.255.254
- neighbor 103.152.126.21 remote-as 4 
- neighbor 103.152.126.21 update-source g0/0 
+network 103.152.126.0 mask 255.255.255.254
+ neighbor 103.152.126.0 remote-as 1
+ neighbor 103.152.126.0 update-source g0/0 
  neighbor 192.168.2.2 remote-as 22.2 
  neighbor 192.168.2.2 update-source lo1 
  neighbor 192.168.2.3 remote-as 22.2 
