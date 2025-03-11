@@ -41,6 +41,7 @@ no shut
 
 
 int g0/1.5
+desc to_ISP2-BD4
 encapsulation dot1q 5
 ip address 10.0.2.2 255.255.255.254
 ip authentication mode eigrp 100 md5 
@@ -48,6 +49,7 @@ ip authentication key-chain eigrp 100 eigrp-chain
 no shut 
 
 int g0/1.6
+desc to_ISP2-BB1
 encapsulation dot1q 6
 ip address 10.0.2.11 255.255.255.254
 ip authentication mode eigrp 100 md5 
@@ -69,7 +71,7 @@ ip address 192.168.2.3 255.255.255.255
 exit 
 
 int lo0
-ip address 192.168.22.2 255.255.255.255 
+ip address 192.168.22.3 255.255.255.255 
 exit 
 
 key chain eigrp-chain 
