@@ -17,21 +17,25 @@ int fa0/1
 no shut
 
 int fa0/1.1
+encapsulation dot1q 1
 des to_ISP1-BD2_vlan1
 ip add 10.0.1.0 255.255.255.254
 no shut
 
 int fa0/1.2
+encapsulation dot1q 2
 des to_ISP1-BD3_vlan2
 ip add 10.0.1.2 255.255.255.254
 no shut
 
 int fa0/1.3
+encapsulation dot1q 3
 des to_ISP1-BD4_vlan3
 ip add 10.0.1.2 255.255.255.254
 no shut
 
 int fa0/1.4
+encapsulation dot1q 4
 des to_ISP1-BD5_vlan4
 ip add 10.0.1.14 255.255.255.254
 no shut
