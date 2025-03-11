@@ -1,0 +1,94 @@
+!=============
+! ISP2-BD2
+!=============
+
+en
+conf t
+hostname ISP2-BD2
+no ip domain-lookup
+banner motd #Unauthorized Access is strictly prohibited#
+username cisco priv 15
+username cisco algorithm-type scrypt secret cisco
+ip domain-name ISP-RZ
+crypto key generate rsa usage-keys modulus 1024
+ip ssh version 2
+
+line vty 0 924
+logging sync
+exec-timeout 0 0
+transport input ssh telnet
+
+line con 0
+logging sync
+exec-timeout 0 0
+
+!------------
+! Interfaces
+!------------
+
+int g0/1 
+no shut
+exit
+
+
+ip address 10.0.2.1 255.255.255.254 
+ip authentication mode eigrp 100 md5 
+ip authentication key-chain eigrp 100 eigrp-chain 
+no shut 
+
+ 
+
+int g0/2 
+ip address 10.0.2.18 255.255.255.248 
+ip authentication mode eigrp 100 md5 
+ip authentication key-chain eigrp 100 eigrp-chain 
+no shut 
+
+int lo1
+ip address 192.168.2.2 255.255.255.255 
+exit 
+
+int lo0
+ip address 192.168.22.2 255.255.255.255 
+exit 
+
+key chain eigrp-chain 
+key 1 
+key-string cisco 
+exit 
+
+int tunnel0 
+ip address 172.16.2.2 255.255.255.0 
+ip nhrp network-id 1 
+ip nhrp nhs 172.16.2.1 
+ip nhrp shortcut 
+ip nhrp map 172.16.2.1 192.168.22.1 
+ip nhrp map multicast 192.168.22.1 
+tunnel source lo1 
+ip ospf network point-to-multipoint 
+exit 
+
+router eigrp 100 
+network 10.0.2.0 0.0.0.1 
+network 10.0.2.16 0.0.0.1 
+network 192.168.22.2 0.0.0.0 
+passive-interface g0/0 
+
+router ospf 1 
+router-id 192.168.22.2 
+network 172.16.2.0 0.0.0.255 area 0 
+network 192.168.2.2 0.0.0.0 area 0 
+passive-interface g0/0 
+
+ 
+
+router bgp 22.2 
+ neighbor 192.168.2.1 remote-as 22.2 
+ neighbor 192.168.2.1 update-source lo1 
+ neighbor 192.168.2.3 remote-as 22.2 
+ neighbor 192.168.2.3 update-source lo1
+
+
+
+end 
+wr 
