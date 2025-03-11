@@ -91,11 +91,11 @@ ip ospf network point-to-multipoint
 exit 
 
 router eigrp 100 
-network 10.0.2.0 0.0.0.1 
-network 10.0.2.6 0.0.0.1 
-network 10.0.2.16 0.0.0.7
-network 192.168.22.2 0.0.0.0 
-passive-interface g0/1
+network 10.0.2.4 0.0.0.1 
+network 10.0.2.2 0.0.0.1 
+network 10.0.2.10 0.0.0.7
+network 192.168.22.3 0.0.0.0 
+passive-interface g0/0
 passive-interface f0/1/0
 
 router ospf 1 
