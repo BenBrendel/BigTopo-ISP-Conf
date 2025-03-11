@@ -80,7 +80,7 @@ key-string cisco
 exit 
 
 int tunnel0 
-ip address 172.16.2.2 255.255.255.0 
+ip address 172.16.2.3 255.255.255.0 
 ip nhrp network-id 1 
 ip nhrp nhs 172.16.2.1 
 ip nhrp shortcut 
@@ -99,20 +99,24 @@ passive-interface g0/1
 passive-interface f0/1/0
 
 router ospf 1 
-router-id 192.168.22.2 
+router-id 192.168.22.3
 network 172.16.2.0 0.0.0.255 area 0 
-network 192.168.2.2 0.0.0.0 area 0 
+network 192.168.2.3 0.0.0.0 area 0 
 passive-interface g0/0 
 passive-interface f0/1/0
  
 
 router bgp 22.2 
- network 103.152.126.40 mask 255.255.255.254
- network 103.152.126.100 mask 255.255.255.254
+ network 103.152.126.2 mask 255.255.255.254
+ network 103.152.126.20 mask 255.255.255.254
+ neighbor 103.152.126.2 remote-as 1
+ neighbor 103.152.126.2 update-source g0/0
+ neighbor 103.152.126.2 remote-as 4
+ neighbor 103.152.126.21 update-source f0/1/0
  neighbor 192.168.2.1 remote-as 22.2 
  neighbor 192.168.2.1 update-source lo1
- neighbor 192.168.2.3 remote-as 22.2 
- neighbor 192.168.2.3 update-source lo1
+ neighbor 192.168.2.2 remote-as 22.2 
+ neighbor 192.168.2.2 update-source lo1
  neighbor 192.168.2.4 remote-as 22.2 
  neighbor 192.168.2.4 update-source lo1
 
