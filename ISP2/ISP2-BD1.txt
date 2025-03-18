@@ -77,7 +77,7 @@ int tunnel0
 ip address 172.16.2.1 255.255.255.0
 ip redirects
 ip nhrp network-id 1
-ip nhrp redirects
+ip nhrp redirect
 tunnel source lo0
 tunnel mode gre multipoint
 ip ospf network point-to-multipoint
