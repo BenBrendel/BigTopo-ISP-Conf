@@ -1,0 +1,71 @@
+!============= 
+! ISP4-BB1 
+!============= 
+
+en 
+conf t 
+hostname ISP4-BB1 
+no ip domain-lookup 
+banner motd #Unauthorized Access is strictly prohibited# 
+username cisco priv 15 
+username cisco algorithm-type scrypt secret cisco 
+ip domain-name ISP-RZ 
+crypto key generate rsa usage-keys modulus 1024 
+ip ssh version 2 
+
+line vty 0 924 
+logging sync 
+exec-timeout 0 0 
+transport input ssh telnet 
+ 
+line con 0 
+logging sync 
+exec-timeout 0 0 
+
+!------------ 
+! Interfaces 
+!------------ 
+
+int g0/1
+desc Intern
+no shut
+exit
+
+int g0/1.6
+desc to_ISP2-BD3
+encapsulation dot1q 6
+ip address 10.0.2.10 255.255.255.254 
+ip authentication mode eigrp 100 md5 
+ip authentication key-chain eigrp 100 eigrp-chain 
+no shut 
+
+int g0/1.15
+desc to_ISP2-SW1
+encapsulation dot1q 15
+ip address 10.0.2.17 255.255.255.248 
+ip authentication mode eigrp 100 md5 
+ip authentication key-chain eigrp 100 eigrp-chain 
+no shut 
+
+int g0/1.3
+desc to_ISP2-BD1
+encapsulation dot1q 3
+ip address 10.0.2.9 255.255.255.254 
+ip authentication mode eigrp 100 md5 
+ip authentication key-chain eigrp 100 eigrp-chain 
+no shut 
+exit 
+
+key chain eigrp-chain 
+key 1 
+key-string cisco 
+exit 
+
+router eigrp 100 
+network 10.0.2.8 0.0.0.1 
+network 10.0.2.16 0.0.0.7 
+network 10.0.2.10 0.0.0.1 
+
+
+end 
+wr 
