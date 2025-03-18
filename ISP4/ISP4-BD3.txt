@@ -92,6 +92,7 @@ neighbor 192.168.4.5 remote-as 4
 neighbor 192.168.4.5 update-source lo1
 neighbor 103.152.126.34 remote-as 333
 neighbor 103.152.126.34 update-source g0/0
+network 103.152.126.34 mask 255.255.255.254
 network 103.152.126.62 mask 255.255.255.254
 
 
