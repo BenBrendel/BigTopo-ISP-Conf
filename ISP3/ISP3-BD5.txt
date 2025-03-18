@@ -24,17 +24,21 @@ int g0/1.10
 encapsulation dot1q 10
 desc to_ISP3-BD6
 ip add 10.0.3.10 255.255.255.254
+mpls ip
+
 
 int g0/1.11
 encapsulation dot1q 11
 desc to_ISP3-BB2
 ip add 10.0.3.12 255.255.255.254
+mpls ip
 
 int g0/1.20
 encapsulation dot1q 20
 desc to_ISP3-SW2
 ip add 10.0.3.41 255.255.255.248
 ip ospf network point-to-multipoint
+mpls ip
 
 
 

@@ -25,12 +25,16 @@ encapsulation dot1q 1
 desc to_ISP3-BD2
 ip add 10.0.3.0 255.255.255.254
 no shut
+mpls ip
+
 
 int g0/1.2
 encapsulation dot1q 2
 desc to_ISP3-BB1
 ip add 10.0.3.2 255.255.255.254
 no shut
+mpls ip
+
 
 int g0/1.15
 encapsulation dot1q 15
@@ -38,6 +42,8 @@ desc to_ISP3-SW1
 ip add 10.0.3.33 255.255.255.248
 no shut
 ip ospf network point-to-multipoint
+mpls ip
+
 
 int lo1
 ip add 192.168.3.1 255.255.255.255

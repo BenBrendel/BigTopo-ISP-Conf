@@ -25,6 +25,7 @@ encapsulation dot1q 2
 desc to_ISP3-BD1
 ip add 10.0.3.3 255.255.255.254
 no shut
+mpls ip
 
 int g0/1.6
 encapsulation dot1q 6
@@ -44,6 +45,8 @@ desc to_ISP3-SW1
 ip add 10.0.3.32 255.255.255.248
 no shut
 ip ospf network point-to-multipoint
+mpls ip
+
 
 
 int lo1
@@ -62,3 +65,39 @@ router ospf 10
  network 10.0.3.22 0.0.0.1 area 0
  network 10.0.3.32 0.0.0.7 area 0
  network 192.168.3.11 0.0.0.0 area 0
+
+
+
+
+
+router bgp 33.66
+bgp confederation identifier 333
+bgp confederation peers 66.33
+neighbor 192.168.3.22 remote-as 66.33
+neighbor 192.168.3.22 update-source lo1
+neighbor 192.168.3.22 ebgp-multihop 2
+
+neighbor 192.168.3.44 remote-as 66.33
+neighbor 192.168.3.44 update-source lo1
+neighbor 192.168.3.44 ebgp-multihop 2
+
+neighbor 192.168.3.33 remote-as 33.66
+neighbor 192.168.3.33 update-source lo1
+neighbor 192.168.3.33 next-hop-self
+
+neighbor 192.168.3.1 remote-as 33.66
+neighbor 192.168.3.1 update-source lo1
+neighbor 192.168.3.1 next-hop-self
+
+neighbor 192.168.3.2 remote-as 33.66
+neighbor 192.168.3.2 update-source lo1
+neighbor 192.168.3.2 next-hop-self
+
+neighbor 192.168.3.3 remote-as 33.66
+neighbor 192.168.3.3 update-source lo1
+neighbor 192.168.3.3 next-hop-self
+
+neighbor 192.168.3.4 remote-as 33.66
+neighbor 192.168.3.4 update-source lo1
+neighbor 192.168.3.4 next-hop-self
+
