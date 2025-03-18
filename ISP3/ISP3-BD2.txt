@@ -62,4 +62,28 @@ router ospf 10
  network 10.0.3.32 0.0.0.7 area 0
 
 
+router bgp 33.66
+bgp confederation identifier 333
+bgp confederation peers 66.33
+
+neighbor 192.168.3.1 remote-as 33.66
+neighbor 192.168.3.1 update-source lo1
+neighbor 192.168.3.1 next-hop-self
+
+neighbor 192.168.3.3 remote-as 33.66
+neighbor 192.168.3.3 update-source lo1
+neighbor 192.168.3.3 next-hop-self
+
+neighbor 192.168.3.4 remote-as 33.66
+neighbor 192.168.3.4 update-source lo1
+neighbor 192.168.3.4 next-hop-self
+
+neighbor 192.168.3.11 remote-as 33.66
+neighbor 192.168.3.11 update-source lo1
+neighbor 192.168.3.11 next-hop-self
+
+neighbor 192.168.3.33 remote-as 33.66
+neighbor 192.168.3.33 update-source lo1
+neighbor 192.168.3.33 next-hop-self
+
 
