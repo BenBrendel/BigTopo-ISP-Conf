@@ -26,46 +26,75 @@ exec-timeout 0 0
 ! Interfaces 
 !------------ 
 
+int f0/0
+desc to_ISP2
+ip address 103.152.126.21 255.255.255.254
+no shut
+exit
+
+int f0/3/0
+desc to_ISP3
+ip address 103.152.126.31 255.255.255.254
+no shut
+exit
+
 int g0/1
 desc Intern
 no shut
 exit
 
-int g0/1.11
-desc to_ISP4-BD5
-encapsulation dot1q 11
-ip address 10.0.4.27 255.255.255.254 
+int g0/1.1
+desc to_ISP4-BD2
+encapsulation dot1q 1
+ip address 10.0.4.2 255.255.255.254 
 mpls ip
 no shut 
 
-int g0/1.15
-desc to_ISP4-BB3
-encapsulation dot1q 15
-ip address 10.0.4.29 255.255.255.254 
+int g0/1.2
+desc to_ISP4-BB2
+encapsulation dot1q 2
+ip address 10.0.4.0 255.255.255.254 
 mpls ip
 no shut 
 
-int g0/1.16
-desc to_ISP4-BB4
-encapsulation dot1q 16
-ip address 10.0.4.25 255.255.255.254 
+int g0/1.3
+desc to_ISP4-BB1
+encapsulation dot1q 3
+ip address 10.0.4.8 255.255.255.254 
 mpls ip
 no shut 
 
-int g0/1.25
-desc to_ISP4-SW2
-encapsulation dot1q 25
-ip address 10.0.4.60 255.255.255.248 
+int lo1
+ip address 192.168.4.1 255.255.255.255
 mpls ip
-no shut 
+no shut
 
 
 router ospf 1
 router-id 10.0.4.27
-network 10.0.4.26 0.0.0.1 area 0
-network 10.0.4.28 0.0.0.1 area 0
-network 10.0.4.24 0.0.0.1 area 0
-network 10.0.4.56 0.0.0.1 area 0
+network 10.0.4.0 0.0.0.1 area 0
+network 10.0.4.2 0.0.0.1 area 0
+network 10.0.4.8 0.0.0.1 area 0
+network 192.168.4.1 0.0.0.0 area 0
+passive-interface f0/0
+passive-interface f0/3/0
+
+router bgp 4
+neighbor 192.168.4.2 remote-as 4
+neighbor 192.168.4.2 update-source lo1
+neighbor 192.168.4.3 remote-as 4
+neighbor 192.168.4.3 update-source lo1
+neighbor 192.168.4.4 remote-as 4
+neighbor 192.168.4.4 update-source lo1
+neighbor 192.168.4.5 remote-as 4
+neighbor 192.168.4.5 update-source lo1
+neighbor 103.152.126.20 remote-as 22.2
+neighbor 103.152.126.20 update-source f0/0
+neighbor 103.152.126.30 remote-as 333
+neighbor 103.152.126.30 update-source f0/3/0
+network 103.152.126.20 mask 255.255.255.254
+network 103.152.126.30 mask 255.255.255.254
+
 
 end 
 wr 
