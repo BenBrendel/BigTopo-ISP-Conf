@@ -26,33 +26,33 @@ exec-timeout 0 0
 ! Interfaces 
 !------------ 
 
-int g0/1
+int f0/1
 desc Intern
 no shut
 exit
 
-int g0/1.11
+int f0/1.11
 desc to_ISP4-BD5
 encapsulation dot1q 11
 ip address 10.0.4.27 255.255.255.254 
 mpls ip
 no shut 
 
-int g0/1.15
+int f0/1.15
 desc to_ISP4-BB3
 encapsulation dot1q 15
 ip address 10.0.4.29 255.255.255.254 
 mpls ip
 no shut 
 
-int g0/1.16
+int f0/1.16
 desc to_ISP4-BB4
 encapsulation dot1q 16
 ip address 10.0.4.25 255.255.255.254 
 mpls ip
 no shut 
 
-int g0/1.25
+int f0/1.25
 desc to_ISP4-SW2
 encapsulation dot1q 25
 ip address 10.0.4.60 255.255.255.248 
