@@ -1,0 +1,99 @@
+!============= 
+! ISP4-BD5
+!============= 
+
+en 
+conf t 
+hostname ISP4-BD5
+no ip domain-lookup 
+banner motd #Unauthorized Access is strictly prohibited# 
+username cisco priv 15 
+username cisco algorithm-type scrypt secret cisco 
+ip domain-name ISP-RZ 
+crypto key generate rsa usage-keys modulus 1024 
+ip ssh version 2 
+
+line vty 0 924 
+logging sync 
+exec-timeout 0 0 
+transport input ssh telnet 
+ 
+line con 0 
+logging sync 
+exec-timeout 0 0 
+
+!------------ 
+! Interfaces 
+!------------ 
+
+
+int g0/0
+desc to_F1S2CE
+ip address 103.152.126.42 255.255.255.254
+no shut
+exit
+
+
+int g0/1
+desc Intern
+no shut
+exit
+
+
+int g0/1.7
+desc to_ISP4-BD4
+encapsulation dot1q 7
+ip address 10.0.4.7 255.255.255.254 
+mpls ip
+no shut 
+
+int g0/1.10
+desc to_ISP4-BB3
+encapsulation dot1q 10
+ip address 10.0.4.18 255.255.255.254 
+mpls ip
+no shut 
+
+int g0/1.11
+desc to_ISP4-BB5
+encapsulation dot1q 11
+ip address 10.0.4.26 255.255.255.254
+mpls ip
+no shut 
+
+int g0/1.25
+desc to_ISP4-SW2
+encapsulation dot1q 25
+ip address 10.0.4.58 255.255.255.248
+mpls ip
+no shut 
+
+int lo1
+ip address 192.168.4.5 255.255.255.255
+mpls ip
+no shut
+
+
+router ospf 1
+router-id 10.0.4.7
+network 10.0.4.6 0.0.0.1 area 0
+network 10.0.4.18 0.0.0.1 area 0
+network 10.0.4.26 0.0.0.1 area 0
+network 10.0.4.56 0.0.0.7 area 0
+network 192.168.4.5 0.0.0.0 area 0
+passive-interface g0/0
+
+router bgp 4
+neighbor 192.168.4.1 remote-as 4
+neighbor 192.168.4.1 update-source lo1
+neighbor 192.168.4.2 remote-as 4
+neighbor 192.168.4.2 update-source lo1
+neighbor 192.168.4.3 remote-as 4
+neighbor 192.168.4.3 update-source lo1
+neighbor 192.168.4.4 remote-as 4
+neighbor 192.168.4.4 update-source lo1
+network 103.152.126.42 mask 255.255.255.254
+
+
+end 
+wr 
