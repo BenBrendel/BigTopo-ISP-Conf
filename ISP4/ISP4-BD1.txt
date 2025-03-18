@@ -1,0 +1,71 @@
+!============= 
+! ISP4-BD1
+!============= 
+
+en 
+conf t 
+hostname ISP4-BD1
+no ip domain-lookup 
+banner motd #Unauthorized Access is strictly prohibited# 
+username cisco priv 15 
+username cisco algorithm-type scrypt secret cisco 
+ip domain-name ISP-RZ 
+crypto key generate rsa usage-keys modulus 1024 
+ip ssh version 2 
+
+line vty 0 924 
+logging sync 
+exec-timeout 0 0 
+transport input ssh telnet 
+ 
+line con 0 
+logging sync 
+exec-timeout 0 0 
+
+!------------ 
+! Interfaces 
+!------------ 
+
+int g0/1
+desc Intern
+no shut
+exit
+
+int g0/1.11
+desc to_ISP4-BD5
+encapsulation dot1q 11
+ip address 10.0.4.27 255.255.255.254 
+mpls ip
+no shut 
+
+int g0/1.15
+desc to_ISP4-BB3
+encapsulation dot1q 15
+ip address 10.0.4.29 255.255.255.254 
+mpls ip
+no shut 
+
+int g0/1.16
+desc to_ISP4-BB4
+encapsulation dot1q 16
+ip address 10.0.4.25 255.255.255.254 
+mpls ip
+no shut 
+
+int g0/1.25
+desc to_ISP4-SW2
+encapsulation dot1q 25
+ip address 10.0.4.60 255.255.255.248 
+mpls ip
+no shut 
+
+
+router ospf 1
+router-id 10.0.4.27
+network 10.0.4.26 0.0.0.1 area 0
+network 10.0.4.28 0.0.0.1 area 0
+network 10.0.4.24 0.0.0.1 area 0
+network 10.0.4.56 0.0.0.1 area 0
+
+end 
+wr 
