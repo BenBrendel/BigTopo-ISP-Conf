@@ -26,9 +26,15 @@ exec-timeout 0 0
 ! Interfaces 
 !------------ 
 
-int f0/0
+int g0/0
 desc to_ISP3
-ip address 103.152.126.33 255.255.255.254
+ip address 103.152.126.35 255.255.255.254
+no shut
+exit
+
+int g0/2
+desc to_F3S1CE2
+ip address 103.152.126.62 255.255.255.254
 no shut
 exit
 
@@ -38,61 +44,56 @@ desc Intern
 no shut
 exit
 
-int g0/1.1
-desc to_ISP4-BD1
-encapsulation dot1q 1
-ip address 10.0.4.3 255.255.255.254 
-mpls ip
-no shut 
 
 int g0/1.4
-desc to_ISP4-BD3
+desc to_ISP4-BD2
 encapsulation dot1q 4
-ip address 10.0.4.4 255.255.255.254 
+ip address 10.0.4.5 255.255.255.254 
 mpls ip
 no shut 
 
-int g0/1.5
-desc to_ISP4-BB1
-encapsulation dot1q 5
-ip address 10.0.4.10 255.255.255.254 
+int g0/1.6
+desc to_ISP4-BB3
+encapsulation dot1q 6
+ip address 10.0.4.14 255.255.255.254 
 mpls ip
 no shut 
 
 int g0/1.20
-desc to_ISP4-BB1
+desc to_ISP4-SW1
 encapsulation dot1q 20
-ip address 10.0.4.41 255.255.255.254 
+ip address 10.0.4.42 255.255.255.248
 mpls ip
 no shut 
 
 int lo1
-ip address 192.168.4.2 255.255.255.255
+ip address 192.168.4.3 255.255.255.255
 mpls ip
 no shut
 
 
 router ospf 1
-router-id 10.0.4.3
-network 10.0.4.2 0.0.0.1 area 0
+router-id 10.0.4.5
 network 10.0.4.4 0.0.0.1 area 0
-network 10.0.4.10 0.0.0.1 area 0
 network 10.0.4.40 0.0.0.7 area 0
-network 192.168.4.2 0.0.0.0 area 0
-passive-interface f0/0
+network 10.0.4.14 0.0.0.1 area 0
+network 192.168.4.3 0.0.0.0 area 0
+passive-interface g0/0
+passive-interface g0/2
 
 router bgp 4
 neighbor 192.168.4.1 remote-as 4
 neighbor 192.168.4.1 update-source lo1
-neighbor 192.168.4.3 remote-as 4
-neighbor 192.168.4.3 update-source lo1
+neighbor 192.168.4.2 remote-as 4
+neighbor 192.168.4.2 update-source lo1
 neighbor 192.168.4.4 remote-as 4
 neighbor 192.168.4.4 update-source lo1
 neighbor 192.168.4.5 remote-as 4
 neighbor 192.168.4.5 update-source lo1
-neighbor 103.152.126.32 remote-as 333
-neighbor 103.152.126.32 update-source f0/0
-network 103.152.126.32 mask 255.255.255.254
+neighbor 103.152.126.34 remote-as 333
+neighbor 103.152.126.34 update-source g0/0
+network 103.152.126.34 mask 255.255.255.254
+network 103.152.126.62 mask 255.255.255.254
 
 
 end 
