@@ -31,58 +31,41 @@ desc Intern
 no shut
 exit
 
-int g0/1.9
-desc to_ISP4-BD4
-encapsulation dot1q 9
-ip address 10.0.4.31 255.255.255.254 
+int g0/1.11
+desc to_ISP4-BD5
+encapsulation dot1q 11
+ip address 10.0.4.27 255.255.255.254 
 mpls ip
 no shut 
 
-int g0/1.13
-desc to_ISP4-BB2
-encapsulation dot1q 13
-ip address 10.0.4.21 255.255.255.254 
-mpls ip
-no shut 
-
-int g0/1.14
+int g0/1.15
 desc to_ISP4-BB3
-encapsulation dot1q 14
-ip address 10.0.4.23 255.255.255.254 
+encapsulation dot1q 15
+ip address 10.0.4.29 255.255.255.254 
 mpls ip
 no shut 
 
 int g0/1.16
-desc to_ISP4-BB5
+desc to_ISP4-BB4
 encapsulation dot1q 16
-ip address 10.0.4.24 255.255.255.254 
+ip address 10.0.4.25 255.255.255.254 
 mpls ip
 no shut 
-
-int g0/1.20
-desc to_ISP4-SW1
-encapsulation dot1q 20
-ip address 10.0.4.45 255.255.255.248 
-mpls ip
-no shut 
-exit 
 
 int g0/1.25
 desc to_ISP4-SW2
 encapsulation dot1q 25
-ip address 10.0.4.53 255.255.255.248 
+ip address 10.0.4.60 255.255.255.248 
 mpls ip
 no shut 
-exit 
+
 
 router ospf 1
-router-id 10.0.4.31
-network 10.0.4.30 0.0.0.1 area 0
-network 10.0.4.20 0.0.0.1 area 0
-network 10.0.4.22 0.0.0.1 area 0
+router-id 10.0.4.27
+network 10.0.4.26 0.0.0.1 area 0
+network 10.0.4.28 0.0.0.1 area 0
 network 10.0.4.24 0.0.0.1 area 0
-network 10.0.4.40 0.0.0.1 area 0
-network 10.0.4.50 0.0.0.7 area 0
+network 10.0.4.56 0.0.0.1 area 0
 
 end 
 wr 
