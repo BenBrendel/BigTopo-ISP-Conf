@@ -1,0 +1,58 @@
+en 
+conf t 
+hostname ISP3-BD3
+no ip domain-lookup 
+banner motd #Unauthorized Access is strictly prohibited except for the one and only MEHMET CIMENLI# 
+username cisco priv 15 
+username cisco algorithm-type scrypt secret cisco 
+ip domain-name ISP-RZ 
+crypto key generate rsa usage-keys modulus 1024 
+ip ssh version 2 
+
+line vty 0 924 
+logging sync 
+exec-timeout 0 0 
+transport input ssh telnet 
+
+
+int g0/1
+desc Intern
+no shut
+exit
+
+int g0/1.3
+encapsulation dot1q 3
+desc to_ISP3-BD2
+ip add 10.0.3.5 255.255.255.254
+no shut
+
+int g0/1.4
+encapsulation dot1q 4
+desc to_ISP3-BD4
+ip add 10.0.3.6 255.255.255.254
+no shut
+
+
+int g0/1.15
+encapsulation dot1q 15
+desc to_ISP3-SW1
+ip add 10.0.3.35 255.255.255.248
+no shut
+ip ospf network point-to-multipoint
+
+
+int lo1
+ip add 192.168.3.3 255.255.255.255
+no shut 
+
+
+router ospf 10
+ router-id 192.168.3.3
+ passive-interface default
+ no passive-interface g0/1.3
+ no passive-interface g0/1.4
+ no passive-interface g0/1.15
+ network 10.0.3.4 0.0.0.1 area 0
+ network 10.0.3.6 0.0.0.1 area 0
+ network 192.168.3.3 0.0.0.0 area 0
+ network 10.0.3.32 0.0.0.7 area 0
