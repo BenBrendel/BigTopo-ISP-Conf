@@ -1,10 +1,10 @@
 !=============
-! f3-s1-ce1
+! f2-s1-ce
 !=============
 
 en
 conf t
-hostname f3-s1-ce1
+hostname f2-s1-ce
 no ip domain-lookup
 banner motd #Unauthorized Access is strictly prohibited | Verantwortlich: Uhlig#
 username cisco priv 15

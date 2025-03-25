@@ -32,7 +32,7 @@ ip address 103.152.126.61 255.255.255.254
 no shut 
 
 int g0/1
-desc to_F3-S1-FW1
+desc to_F3-S1-FW
 ip address 45.84.107.62 255.255.255.192
 no shut
 exit
