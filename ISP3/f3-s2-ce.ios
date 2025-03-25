@@ -1,0 +1,43 @@
+!=============
+! f3-s2-ce
+!=============
+
+en
+conf t
+hostname f3-s2-ce
+no ip domain-lookup
+banner motd #Unauthorized Access is strictly prohibited | Verantwortlich: Uhlig#
+username cisco priv 15
+username cisco algorithm-type scrypt secret cisco
+ip domain-name ISP-RZ
+crypto key generate rsa usage-keys modulus 1024
+ip ssh version 2
+
+line vty 0 924
+logging sync
+exec-timeout 0 0
+transport input ssh telnet
+
+line con 0
+logging sync
+exec-timeout 0 0
+
+!------------
+! Interfaces
+!------------
+
+int g0/0
+desc to_ISP3-BD4
+ip address 103.152.126.65 255.255.255.254 
+no shut 
+
+int g0/1
+desc to_F3-S2-FG1
+ip address 45.84.107.254 255.255.255.128
+no shut
+exit
+
+ip route 0.0.0.0 0.0.0.0 103.152.126.64
+
+end 
+wr 
