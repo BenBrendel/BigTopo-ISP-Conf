@@ -1,0 +1,93 @@
+!============= 
+! ISP4-BB4
+!============= 
+
+en 
+conf t 
+hostname ISP4-BB4
+no ip domain-lookup 
+banner motd #Unauthorized Access is strictly prohibited# 
+username cisco priv 15 
+username cisco secret cisco 
+ip domain-name ISP-RZ 
+crypto key generate rsa usage-keys modulus 1024 
+ip ssh version 2 
+
+line vty 0 15
+logging sync 
+exec-timeout 0 0 
+transport input ssh telnet 
+ 
+line con 0 
+logging sync 
+exec-timeout 0 0 
+
+!------------ 
+! Interfaces 
+!------------ 
+
+int f0/1
+desc Intern
+no shut
+exit
+
+int f0/1.9
+desc to_ISP4-BD4
+encapsulation dot1q 9
+ip address 10.0.4.31 255.255.255.254 
+mpls ip
+no shut 
+
+int f0/1.13
+desc to_ISP4-BB2
+encapsulation dot1q 13
+ip address 10.0.4.21 255.255.255.254 
+mpls ip
+no shut 
+
+int f0/1.14
+desc to_ISP4-BB3
+encapsulation dot1q 14
+ip address 10.0.4.23 255.255.255.254 
+mpls ip
+no shut 
+
+int f0/1.16
+desc to_ISP4-BB5
+encapsulation dot1q 16
+ip address 10.0.4.24 255.255.255.254 
+mpls ip
+no shut 
+
+int f0/1.20
+desc to_ISP4-SW1
+encapsulation dot1q 20
+ip address 10.0.4.45 255.255.255.248 
+mpls ip
+no shut 
+exit 
+
+int f0/1.25
+desc to_ISP4-SW2
+encapsulation dot1q 25
+ip address 10.0.4.59 255.255.255.248 
+mpls ip
+no shut 
+exit int f0/1.44
+desc to_Server_VLAN
+encapsulation dot1q 44
+ip address 10.0.40.40 255.255.255.0
+no shut 
+exit 
+
+router ospf 1
+router-id 10.0.4.31
+network 10.0.4.30 0.0.0.1 area 0
+network 10.0.4.20 0.0.0.1 area 0
+network 10.0.4.22 0.0.0.1 area 0
+network 10.0.4.24 0.0.0.1 area 0
+network 10.0.4.40 0.0.0.1 area 0
+network 10.0.4.56 0.0.0.7 area 0
+
+end 
+wr 
