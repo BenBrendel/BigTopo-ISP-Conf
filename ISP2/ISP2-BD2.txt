@@ -56,6 +56,13 @@ ip authentication mode eigrp 100 md5
 ip authentication key-chain eigrp 100 eigrp-chain 
 no shut 
 
+int g0/1.22
+desc to_Server_VLAN
+encapsulation dot1q 22
+ip address 10.0.20.2 255.255.255.0
+no shut 
+exit 
+
 int g0/0
 desc to_MaxSec
 ip address 103.152.126.40 255.255.255.254

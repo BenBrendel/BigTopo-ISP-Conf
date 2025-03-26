@@ -56,6 +56,13 @@ ip authentication key-chain eigrp 100 eigrp-chain
 no shut 
 exit 
 
+int g0/1.22
+desc to_Server_VLAN
+encapsulation dot1q 22
+ip address 10.0.20.10 255.255.255.0
+no shut 
+exit 
+
 key chain eigrp-chain 
 key 1 
 key-string cisco 

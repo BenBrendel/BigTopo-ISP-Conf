@@ -60,6 +60,13 @@ ip authentication mode eigrp 100 md5
 ip authentication key-chain eigrp 100 eigrp-chain 
 no shut
 
+int g0/1.22
+desc to_Server_VLAN
+encapsulation dot1q 22
+ip address 10.0.20.1 255.255.255.0
+no shut 
+exit 
+
 int lo1
 ip address 192.168.2.1 255.255.255.255
 exit
@@ -84,7 +91,8 @@ ip ospf network point-to-multipoint
 exit
 
 router eigrp 100
-network 10.0.2.0 0.0.0.1network 10.0.2.4 0.0.0.1
+network 10.0.2.0 0.0.0.1
+network 10.0.2.4 0.0.0.1
 network 10.0.2.8 0.0.0.1
 network 192.168.22.1 0.0.0.0
 passive-interface g0/0

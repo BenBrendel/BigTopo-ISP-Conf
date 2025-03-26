@@ -8,12 +8,12 @@ hostname ISP4-BB4
 no ip domain-lookup 
 banner motd #Unauthorized Access is strictly prohibited# 
 username cisco priv 15 
-username cisco algorithm-type scrypt secret cisco 
+username cisco secret cisco 
 ip domain-name ISP-RZ 
 crypto key generate rsa usage-keys modulus 1024 
 ip ssh version 2 
 
-line vty 0 924 
+line vty 0 15
 logging sync 
 exec-timeout 0 0 
 transport input ssh telnet 
@@ -72,6 +72,11 @@ desc to_ISP4-SW2
 encapsulation dot1q 25
 ip address 10.0.4.59 255.255.255.248 
 mpls ip
+no shut 
+exit int f0/1.44
+desc to_Server_VLAN
+encapsulation dot1q 44
+ip address 10.0.40.40 255.255.255.0
 no shut 
 exit 
 
