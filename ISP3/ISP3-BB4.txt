@@ -1,6 +1,6 @@
 en 
 conf t 
-hostname ISP3-BB3
+hostname ISP3-BB4
 no ip domain-lookup 
 banner motd #Unauthorized Access is strictly prohibited except for the one and only MEHMET CIMENLI# 
 username cisco priv 15 
@@ -15,23 +15,23 @@ exec-timeout 0 0
 transport input ssh telnet 
 
 
-int g0/1
+int f0/1
 desc Intern
 no shut
 exit
 
-int g0/1.7
+int f0/1.7
 encapsulation dot1q 7
 desc to_ISP3-BB1
 ip add 10.0.3.23 255.255.255.254
 no shut
 
-int g0/1.8
+int f0/1.8
 encapsulation dot1q 8
 desc to_ISP3-BB3
 ip add 10.0.3.21 255.255.255.254
 
-int g0/1.13
+int f0/1.13
 encapsulation dot1q 13
 desc to_ISP3-BD7
 ip add 10.0.3.17 255.255.255.254
@@ -39,7 +39,7 @@ no shut
 mpls ip
 
 
-int g0/1.20
+int f0/1.20
 encapsulation dot1q 20
 desc to_ISP3-SW2
 ip add 10.0.3.45 255.255.255.248
@@ -55,10 +55,10 @@ no shut
 router ospf 10
  router-id 192.168.3.44
  passive-interface default
- no passive-interface g0/1.7
- no passive-interface g0/1.8
- no passive-interface g0/1.13
- no passive-interface g0/1.20
+ no passive-interface f0/1.7
+ no passive-interface f0/1.8
+ no passive-interface f0/1.13
+ no passive-interface f0/1.20
  network 10.0.3.16 0.0.0.1 area 0
  network 10.0.3.22 0.0.0.1 area 0
  network 10.0.3.20 0.0.0.1 area 0
@@ -66,29 +66,29 @@ router ospf 10
  network 192.168.3.44 0.0.0.0 area 0
 
 
-router bgp 66.33
+router bgp 66
 bgp confederation identifier 333
-bgp confederation peers 33.66
-neighbor 192.168.3.11 remote-as 33.66
+bgp confederation peers 33
+neighbor 192.168.3.11 remote-as 33
 neighbor 192.168.3.11 update-source lo1
 neighbor 192.168.3.11 ebgp-multihop 2
 
-neighbor 192.168.3.33 remote-as 33.66
+neighbor 192.168.3.33 remote-as 33
 neighbor 192.168.3.33 update-source lo1
 neighbor 192.168.3.33 ebgp-multihop 2
 
-neighbor 192.168.3.22 remote-as 66.33
+neighbor 192.168.3.22 remote-as 66
 neighbor 192.168.3.22 update-source lo1
 neighbor 192.168.3.22 next-hop-self
 
-neighbor 192.168.3.5 remote-as 66.33
+neighbor 192.168.3.5 remote-as 66
 neighbor 192.168.3.5 update-source lo1
 neighbor 192.168.3.5 next-hop-self
 
-neighbor 192.168.3.6 remote-as 66.33
+neighbor 192.168.3.6 remote-as 66
 neighbor 192.168.3.6 update-source lo1
 neighbor 192.168.3.6 next-hop-self
 
-neighbor 192.168.3.7 remote-as 66.33
+neighbor 192.168.3.7 remote-as 66
 neighbor 192.168.3.7 update-source lo1
 neighbor 192.168.3.7 next-hop-self

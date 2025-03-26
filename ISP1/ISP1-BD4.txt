@@ -96,7 +96,8 @@ neighbor 192.168.1.5 remote-as 1
 neighbor 192.168.1.5 update-source lo1
 
 
-# FUER SPAETER 
+
+
 router bgp 1
 network 103.152.126.2 255.255.255.254
 network 103.152.126.12 255.255.255.254

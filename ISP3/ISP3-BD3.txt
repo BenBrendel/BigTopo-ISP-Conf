@@ -15,12 +15,12 @@ exec-timeout 0 0
 transport input ssh telnet 
 
 
-int g0/1
+int f0/1
 desc Intern
 no shut
 exit
 
-int g0/1.3
+int f0/1.3
 encapsulation dot1q 3
 desc to_ISP3-BD2
 ip add 10.0.3.5 255.255.255.254
@@ -28,7 +28,7 @@ no shut
 mpls ip
 
 
-int g0/1.4
+int f0/1.4
 encapsulation dot1q 4
 desc to_ISP3-BD4
 ip add 10.0.3.6 255.255.255.254
@@ -36,7 +36,7 @@ no shut
 mpls ip
 
 
-int g0/1.15
+int f0/1.15
 encapsulation dot1q 15
 desc to_ISP3-SW1
 ip add 10.0.3.35 255.255.255.248
@@ -53,35 +53,43 @@ no shut
 router ospf 10
  router-id 192.168.3.3
  passive-interface default
- no passive-interface g0/1.3
- no passive-interface g0/1.4
- no passive-interface g0/1.15
+ no passive-interface f0/1.3
+ no passive-interface f0/1.4
+ no passive-interface f0/1.15
  network 10.0.3.4 0.0.0.1 area 0
  network 10.0.3.6 0.0.0.1 area 0
  network 192.168.3.3 0.0.0.0 area 0
  network 10.0.3.32 0.0.0.7 area 0
 
 
-router bgp 33.66
-bgp confederation identifier 333
-bgp confederation peers 66.33
+int f0/1.33
+encapsulation dot1q 33
+ip add 10.0.33.35 255.255.255.0
+no shut
+ip ospf network point-to-multipoint
+mpls ip
 
-neighbor 192.168.3.1 remote-as 33.66
+
+router bgp 33
+bgp confederation identifier 333
+bgp confederation peers 66
+
+neighbor 192.168.3.1 remote-as 33
 neighbor 192.168.3.1 update-source lo1
 neighbor 192.168.3.1 next-hop-self
 
-neighbor 192.168.3.2 remote-as 33.66
+neighbor 192.168.3.2 remote-as 33
 neighbor 192.168.3.2 update-source lo1
 neighbor 192.168.3.2 next-hop-self
 
-neighbor 192.168.3.4 remote-as 33.66
+neighbor 192.168.3.4 remote-as 33
 neighbor 192.168.3.4 update-source lo1
 neighbor 192.168.3.4 next-hop-self
 
-neighbor 192.168.3.11 remote-as 33.66
+neighbor 192.168.3.11 remote-as 33
 neighbor 192.168.3.11 update-source lo1
 neighbor 192.168.3.11 next-hop-self
 
-neighbor 192.168.3.33 remote-as 33.66
+neighbor 192.168.3.33 remote-as 33
 neighbor 192.168.3.33 update-source lo1
 neighbor 192.168.3.33 next-hop-self
