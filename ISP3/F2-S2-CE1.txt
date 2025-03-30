@@ -1,0 +1,24 @@
+en
+conf t
+hostname F2-S2-CE1
+ip domain name F1
+username cisco priv 15 secret cisco
+crypto key generate rsa modulus 2048 usage-keys
+ip ssh version 2
+
+
+int f0/1
+desc to_ISP3-BD2
+ip address 103.152.126.53 255.255.255.254 
+no shut 
+
+int f0/0
+desc to_Switch
+ip address 31.6.16.253 255.255.255.128
+no shut 
+
+ip route 0.0.0.0 0.0.0.0 103.152.126.52
+
+router ospf 99
+network 31.6.16.128 0.0.0.127 area 0
+network 103.152.126.52 0.0.0.1 area 0

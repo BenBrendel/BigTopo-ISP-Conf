@@ -19,6 +19,11 @@ int f0/0
 ip add 31.6.14.126 255.255.255.128
 no shut
 
+exit
+en
+conf t
+ip route 0.0.0.0 0.0.0.0 103.152.126.40
+
 
 !###########################
 ! DMVPN CONFIG (HUB)
@@ -45,4 +50,4 @@ int Tunnel0
 ip ospf network point-to-multipoint
 router ospf 10
 network 172.16.0.0 0.0.255.255 area 10
-netowrk 31.6.14.0 0.0.0.128 area 10
+network 31.6.14.0 0.0.0.127 area 10

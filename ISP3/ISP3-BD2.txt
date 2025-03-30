@@ -87,3 +87,22 @@ neighbor 192.168.3.33 update-source lo1
 neighbor 192.168.3.33 next-hop-self
 
 
+#--------INTERFACES AENDERN
+exit
+end
+en
+conf t
+
+int g0/0
+ip add 103.152.126.52 255.255.255.254
+no shut
+
+router ospf 99
+passive-interface default
+no passive-interface g0/0
+network 103.152.126.52 0.0.0.1 area 0
+
+router bgp 33
+redistribute ospf 99 match internal external 1 external 2
+
+
