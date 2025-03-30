@@ -97,7 +97,16 @@ neighbor 192.168.1.5 update-source lo1
 
 
 # FUER SPAETER 
+# fa0/0 muss vielleicht ersetzt werden
+en
+conf t
+int fa0/0
+des to_ISP2-BD1
+ip add 103.152.126.0 255.255.255.254
+no shut
+
+
 router bgp 1
-network 103.152.126.0 255.255.255.240
-neighbor 103.152.126.0 remote-as 22.2
-neighbor 103.152.126.0 update-source INTERFACES HERAUSFINDE
+network 103.152.126.0 mask 255.255.255.254
+neighbor 103.152.126.1 remote-as 22.2
+neighbor 103.152.126.1 update-source fa0/0

@@ -97,8 +97,18 @@ neighbor 192.168.1.1 remote-as 1
 neighbor 192.168.1.1 update-source lo1
 
 
+
 # FUER SPAETER 
+# fa0/0 muss vielleicht ersetzt werden
+en
+conf t
+int fa0/0
+des to_ISP3-BD1
+ip add 103.152.126.10 255.255.255.254
+no shut
+
+
 router bgp 1
 network 103.152.126.10 255.255.255.254
 neighbor 103.152.126.11 remote-as 333
-neighbor 103.152.126.11 update-source INTERFACES HERAUSFINDEN
+neighbor 103.152.126.11 update-source f0/0
