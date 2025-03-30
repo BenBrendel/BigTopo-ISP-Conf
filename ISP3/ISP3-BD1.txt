@@ -88,3 +88,19 @@ neighbor 192.168.3.33 update-source lo1
 neighbor 192.168.3.33 next-hop-self
 
 
+# FUER SPAETER 
+# fa0/0 muss vielleicht ersetzt werden
+
+en
+conf t
+int fa0/0
+des to_ISP1-BD5
+ip add 103.152.126.11 255.255.255.254
+no shut
+
+
+router bgp 1
+network 103.152.126.10 mask 255.255.255.254
+neighbor 103.152.126.10 remote-as 1
+neighbor 103.152.126.10 update-source f0/0
+

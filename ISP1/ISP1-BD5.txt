@@ -109,6 +109,6 @@ no shut
 
 
 router bgp 1
-network 103.152.126.10 255.255.255.254
+network 103.152.126.10 mask 255.255.255.254
 neighbor 103.152.126.11 remote-as 333
 neighbor 103.152.126.11 update-source f0/0

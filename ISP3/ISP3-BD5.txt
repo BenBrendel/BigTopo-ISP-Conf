@@ -79,5 +79,32 @@ neighbor 192.168.3.44 remote-as 66
 neighbor 192.168.3.44 update-source lo1
 neighbor 192.168.3.44 next-hop-self
 
+# FUER SPAETER 
+# fa0/0 muss vielleicht ersetzt werden
+# fa0/3 muss vielleicht ersetzt werden
+
+
+en
+conf t
+int fa0/0
+des to_ISP1-BD4
+ip add 103.152.126.13 255.255.255.254
+no shut
+int fa0/3
+des to_ISP4-BD1
+ip add 103.152.126.30 255.255.255.254
+no shut
+
+
+router bgp 66
+network 103.152.126.12 mask 255.255.255.254
+network 103.152.126.30 mask 255.255.255.254
+
+neighbor 103.152.126.12 remote-as 1
+neighbor 103.152.126.12 update-source f0/0
+
+neighbor 103.152.126.31 remote-as 4
+neighbor 103.152.126.31 update-source f0/3
+
 
 
