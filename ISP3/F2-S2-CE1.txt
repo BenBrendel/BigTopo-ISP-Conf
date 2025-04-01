@@ -22,3 +22,9 @@ ip route 0.0.0.0 0.0.0.0 103.152.126.52
 router ospf 99
 network 31.6.16.128 0.0.0.127 area 0
 network 103.152.126.52 0.0.0.1 area 0
+
+
+int f0/0
+standby 1 ip 31.6.16.252
+standby 1 priority 110
+standby 1 preempt
