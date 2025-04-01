@@ -1,0 +1,109 @@
+en
+conf t
+
+hostname RZ-CE
+no ip domain-lookup
+banner motd #Unauthorized Access is strictly prohibited | Verantwortlich: Uhlig#
+username cisco priv 15
+username cisco algorithm-type scrypt secret cisco
+ip domain-name ISP-RZ
+crypto key generate rsa usage-keys modulus 1024
+ip ssh version 2
+
+interface g0/1
+ no shut
+exit
+
+interface g0/1.100
+ description to_RZ-Servers
+ encapsulation dot1Q 100
+ ip address 10.10.10.254 255.255.255.0
+ ip nat inside
+ no shutdown
+exit
+ 
+interface g0/1.200
+ description to_Exchange
+ encapsulation dot1Q 200
+ ip address 192.168.10.254 255.255.255.0
+ ip nat inside
+ no shutdown
+exit
+
+
+interface g0/0
+ description to_ISP1-BD1
+ ip address 103.152.126.82 255.255.255.240
+ ip nat outside
+ no shutdown
+exit
+ 
+crypto ikev2 proposal IKE-PROPOSAL
+ encryption aes-cbc-256
+ integrity sha512
+ group 19
+exit
+
+crypto ikev2 policy IKE-POLICY
+ proposal IKE-PROPOSAL
+exit
+
+crypto ikev2 keyring VPN-KEYRING
+ peer FORTIGATE
+  address 103.152.126.100
+  pre-shared-key cisco
+ exit
+exit
+
+crypto ikev2 profile IKE-PROFILE
+ match identity remote address 103.152.126.100
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local VPN-KEYRING
+exit
+
+crypto ipsec transform-set TRANSFORM-SET esp-aes 256 esp-sha512-hmac
+ mode tunnel
+exit
+
+crypto ipsec profile IPSEC-PROFILE
+ set transform-set TRANSFORM-SET
+ set ikev2-profile IKE-PROFILE
+exit
+
+interface Tunnel0
+ ip address 172.16.0.1 255.255.255.0
+ tunnel mode ipsec ipv4
+ tunnel protection ipsec profile IPSEC-PROFILE
+ tunnel source g0/0
+ tunnel destination 103.152.126.100
+ ip nat outside
+exit
+
+access-list VPN-ACL permit ip 192.168.10.0 255.255.255.0 any
+
+route-map VPN-PBR permit 10
+ match ip address VPN-ACL
+ set interface Tunnel0
+exit
+
+interface GigabitEthernet0/1
+ ip policy route-map VPN-PBR
+exit
+ 
+ip nat inside source static 10.10.10.1 103.152.126.83
+ip nat inside source static 10.10.10.2 103.152.126.84
+ip nat inside source static 10.10.10.3 103.152.126.85
+ip nat inside source static 10.10.10.6 103.152.126.88
+ip nat inside source static 10.10.10.7 103.152.126.89
+ip nat inside source static 10.10.10.8 103.152.126.90
+ip nat inside source static 10.10.10.9 103.152.126.91
+ip nat inside source static 10.10.10.10 103.152.126.92
+
+ip nat inside source static 192.168.10.1 172.16.0.10
+
+ip route 0.0.0.0 0.0.0.0 103.152.126.81
+
+
+end
+wr mem
