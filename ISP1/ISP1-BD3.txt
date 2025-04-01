@@ -93,6 +93,15 @@ neighbor 192.168.1.4 update-source lo1
 neighbor 192.168.1.5 remote-as 1
 neighbor 192.168.1.5 update-source lo1
 
+exit
+end
+conf t
+
+ip route 31.6.14.192 255.255.255.192 103.152.126.45
+
+router bgp 1
+redistribute static
+
 
 
 

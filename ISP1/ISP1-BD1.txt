@@ -117,7 +117,7 @@ router bgp 1
 network 103.152.126.80 255.255.255.240
 network 103.152.126.100 255.255.255.254
 neighbor 103.152.126.100 remote-as 47.11
-neighbor 103.152.126.100 update-source f0/0
+neighbor 103.152.126.100 update-source f0/0.110
 
 
 

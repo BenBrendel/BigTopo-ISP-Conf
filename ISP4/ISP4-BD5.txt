@@ -66,7 +66,9 @@ desc to_ISP4-SW2
 encapsulation dot1q 25
 ip address 10.0.4.58 255.255.255.248
 mpls ip
-no shut int g0/1.44
+no shut 
+
+int g0/1.44
 desc to_Server_VLAN
 encapsulation dot1q 44
 ip address 10.0.40.5 255.255.255.0
@@ -102,3 +104,11 @@ network 103.152.126.42 mask 255.255.255.254
 
 end 
 wr 
+
+
+
+# goofy aah route zum grünen standort (ALL HAIL MEHMET CIMENLI)
+ip route 31.6.14.128 255.255.255.192 103.152.126.43
+router bgp 4
+redistribute static
+

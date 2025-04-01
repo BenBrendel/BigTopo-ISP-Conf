@@ -41,6 +41,22 @@ ip add 10.0.1.8 255.255.255.254
 no shut
 
 
+int fa0/0
+no shut
+
+int fa0/0.101
+encapsulation dot1q 101
+des to_ISP2-BD3_vlan101
+ip add 103.152.126.2 255.255.255.254
+no shut
+
+int fa0/0.102
+encapsulation dot1q 102
+des to_ISP3-BD5_vlan102
+ip add 103.152.126.12 255.255.255.254
+no shut
+
+
 end
 conf t
 
@@ -97,37 +113,10 @@ neighbor 192.168.1.5 update-source lo1
 
 
 
-
 router bgp 1
 network 103.152.126.2 255.255.255.254
 network 103.152.126.12 255.255.255.254
 neighbor 103.152.126.3 remote-as 22.2
-neighbor 103.152.126.3 update-source INTERFACES HERAUSFINDEN
+neighbor 103.152.126.3 update-source fa0/0.101
 neighbor 103.152.126.13 remote-as 333
-neighbor 103.152.126.13 update-source INTERFACES HERAUSFINDEN
-
-
-# FUER SPAETER 
-# fa0/0 muss vielleicht ersetzt werden
-# fa0/3 muss vielleicht ersetzt werden
-
-en
-conf t
-int fa0/0
-des to_ISP2-BD3
-ip add 103.152.126.2 255.255.255.254
-no shut
-
-int fa0/3
-des to_ISP3-BD5
-ip add 103.152.126.12 255.255.255.254
-no shut
-
-
-router bgp 1
-network 103.152.126.2 mask 255.255.255.254
-network 103.152.126.12 mask 255.255.255.254
-neighbor 103.152.126.3 remote-as 2
-neighbor 103.152.126.3 update-source fa0/0
-neighbor 103.152.126.13 remote-as 333
-neighbor 103.152.126.13 update-source fa0/3
+neighbor 103.152.126.13 update-source fa0/0.102
