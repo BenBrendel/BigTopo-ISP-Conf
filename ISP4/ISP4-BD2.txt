@@ -67,7 +67,8 @@ no shut
 int f0/1.20
 desc to_ISP4-BB1
 encapsulation dot1q 20
-ip address 10.0.4.41 255.255.255.254 
+ip address 10.0.4.41 255.255.255.254
+ip ospf network point-to-multipoint
 mpls ip
 no shut 
 
