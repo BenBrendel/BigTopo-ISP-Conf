@@ -21,10 +21,15 @@ transport input ssh telnet
 line con 0 
 logging sync 
 exec-timeout 0 0 
+exit
 
 !------------ 
 ! Interfaces 
 !------------ 
+
+logging on
+logging trap debugging
+logging host 10.0.40.100
 
 int g0/2
 desc to_F3S1CE2
