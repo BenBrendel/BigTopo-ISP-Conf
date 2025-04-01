@@ -63,11 +63,6 @@ ip address 10.0.20.4 255.255.255.0
 no shut 
 exit 
 
-int g0/0
-desc to_ISP4
-ip address 103.152.126.22 255.255.255.254
-no shut
-
 int lo1
 ip address 192.168.2.4 255.255.255.255 
 exit 
@@ -107,9 +102,6 @@ passive-interface g0/0
  
 
 router bgp 22.2 
- network 103.152.126.22 mask 255.255.255.254
- neighbor 103.152.126.23 remote-as 4
- neighbor 103.152.126.23 update-source g0/0
  neighbor 192.168.2.1 remote-as 22.2 
  neighbor 192.168.2.1 update-source lo1
  neighbor 192.168.2.2 remote-as 22.2 
