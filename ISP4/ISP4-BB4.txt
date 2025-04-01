@@ -21,10 +21,15 @@ transport input ssh telnet
 line con 0 
 logging sync 
 exec-timeout 0 0 
+exit
 
 !------------ 
 ! Interfaces 
 !------------ 
+
+logging on
+logging trap debugging
+logging host 10.0.40.100
 
 int f0/1
 desc Intern
@@ -73,7 +78,9 @@ encapsulation dot1q 25
 ip address 10.0.4.59 255.255.255.248 
 mpls ip
 no shut 
-exit int f0/1.44
+exit 
+
+int f0/1.44
 desc to_Server_VLAN
 encapsulation dot1q 44
 ip address 10.0.40.40 255.255.255.0
