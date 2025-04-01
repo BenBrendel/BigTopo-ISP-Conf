@@ -23,6 +23,12 @@ logging sync
 exec-timeout 0 0
 
 !------------
+! VRF
+!------------
+ip vrf Firma3
+    
+
+!------------
 ! Interfaces
 !------------
 
