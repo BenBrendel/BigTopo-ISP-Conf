@@ -94,3 +94,15 @@ neighbor 103.152.126.33 remote-as 4
 neighbor 103.152.126.33 update-source f0/0
 
 
+exit
+end
+conf t
+logging on
+logging host 100.0.66.100
+logging trap 7
+
+
+int f0/1.66
+encapsulation dot1q 66
+desc SERVER
+ip add 10.0.66.6 255.255.255.0

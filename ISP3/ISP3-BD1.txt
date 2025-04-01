@@ -104,3 +104,16 @@ network 103.152.126.10 mask 255.255.255.254
 neighbor 103.152.126.10 remote-as 1
 neighbor 103.152.126.10 update-source f0/0
 
+
+exit
+end
+conf t
+logging on
+logging host 100.0.33.100
+logging trap 7
+
+int f0/1.33
+encapsulation dot1q 33
+desc SERVER
+ip add 10.0.33.1 255.255.255.0
+

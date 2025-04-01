@@ -113,3 +113,16 @@ network 103.152.126.54 0.0.0.1 area 0
 
 router bgp 33
 redistribute ospf 99 match internal external 1 external 2
+
+
+exit
+end
+conf t
+logging on
+logging host 100.0.33.100
+logging trap 7
+
+int f0/1.33
+encapsulation dot1q 33
+desc SERVER
+ip add 10.0.33.3 255.255.255.0

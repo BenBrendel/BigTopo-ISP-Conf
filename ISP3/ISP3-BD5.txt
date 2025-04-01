@@ -111,3 +111,14 @@ neighbor 103.152.126.31 update-source f0/0.104
 
 
 
+exit
+end
+conf t
+logging on
+logging host 100.0.66.100
+logging trap 7
+
+int f0/1.66
+encapsulation dot1q 66
+desc SERVER
+ip add 10.0.66.5 255.255.255.0

@@ -41,6 +41,11 @@ ip add 10.0.3.43 255.255.255.248
 ip ospf network point-to-multipoint
 mpls ip
 
+int f0/1.66
+encapsulation dot1q 66
+desc SERVER
+ip add 10.0.66.7 255.255.255.0
+
 
 int lo1
 ip add 192.168.3.7 255.255.255.255
@@ -78,5 +83,12 @@ neighbor 192.168.3.44 remote-as 66
 neighbor 192.168.3.44 update-source lo1
 neighbor 192.168.3.44 next-hop-self
 
+
+exit
+end
+conf t
+logging on
+logging host 100.0.66.100
+logging trap 7
 
 

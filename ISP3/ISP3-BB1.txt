@@ -107,3 +107,16 @@ neighbor 192.168.3.4 remote-as 33
 neighbor 192.168.3.4 update-source lo1
 neighbor 192.168.3.4 next-hop-self
 
+
+
+exit
+end
+conf t
+logging on
+logging host 100.0.33.100
+logging trap 7
+
+int f0/1.33
+encapsulation dot1q 33
+desc SERVER
+ip add 10.0.33.10 255.255.255.0
