@@ -64,13 +64,19 @@ no shut
 exit 
 
 int g0/0
-desc to_ISP1
-ip address 103.152.126.3 255.255.255.254
+desc to_Outside
 no shut
 
-int f0/1/0
+int g0/0.103
 desc to_ISP4
+encapsulation dot1q 103
 ip address 103.152.126.20 255.255.255.254
+no shut
+
+int g0/0.101
+desc to_ISP1
+encapsulation dot1q 101
+ip address 103.152.126.3 255.255.255.254
 no shut
 
 int lo1
@@ -103,14 +109,16 @@ network 10.0.2.2 0.0.0.1
 network 10.0.2.10 0.0.0.1
 network 192.168.22.3 0.0.0.0 
 passive-interface g0/0
-passive-interface f0/1/0
+passive-interface g0/0.101
+passive-interface g0/0.103
 
 router ospf 1 
 router-id 192.168.22.3
 network 172.16.2.0 0.0.0.255 area 0 
 network 192.168.2.3 0.0.0.0 area 0 
-passive-interface g0/0 
-passive-interface f0/1/0
+passive-interface g0/0
+passive-interface g0/0.101
+passive-interface g0/0.103
  
 
 router bgp 22.2 
