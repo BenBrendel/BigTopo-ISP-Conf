@@ -15,26 +15,26 @@ exec-timeout 0 0
 transport input ssh telnet 
 
 
-int g0/1
+int f0/1
 desc Intern
 no shut
 exit
 
-int g0/1.12
+int f0/1.12
 encapsulation dot1q 12
 desc to_ISP3-BD6
 ip add 10.0.3.15 255.255.255.254
 mpls ip
 
 
-int g0/1.13
+int f0/1.13
 encapsulation dot1q 13
 desc to_ISP3-BB4
 ip add 10.0.3.16 255.255.255.254
 mpls ip
 
 
-int g0/1.20
+int f0/1.20
 encapsulation dot1q 20
 desc to_ISP3-SW2
 ip add 10.0.3.43 255.255.255.248
@@ -49,9 +49,9 @@ no shut
 router ospf 10
  router-id 192.168.3.7
  passive-interface default
- no passive-interface g0/1.13
- no passive-interface g0/1.12
- no passive-interface g0/1.20
+ no passive-interface f0/1.13
+ no passive-interface f0/1.12
+ no passive-interface f0/1.20
  network 10.0.3.14 0.0.0.1 area 0
  network 10.0.3.16 0.0.0.1 area 0
  network 192.168.3.7 0.0.0.0 area 0
