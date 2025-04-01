@@ -14,17 +14,17 @@ interface g0/1
  no shut
 exit
 
-interface g0/1.100
+interface g0/1.330
  description to_RZ-Servers
- encapsulation dot1Q 100
+ encapsulation dot1Q 330
  ip address 10.10.10.254 255.255.255.0
  ip nat inside
  no shutdown
 exit
  
-interface g0/1.200
+interface g0/1.331
  description to_Exchange
- encapsulation dot1Q 200
+ encapsulation dot1Q 331
  ip address 192.168.10.254 255.255.255.0
  ip nat inside
  no shutdown
@@ -51,7 +51,7 @@ exit
 crypto ikev2 keyring VPN-KEYRING
  peer FORTIGATE
   address 103.152.126.100
-  pre-shared-key cisco
+  pre-shared-key cisco123
  exit
 exit
 
@@ -80,7 +80,9 @@ interface Tunnel0
  ip nat outside
 exit
 
-access-list VPN-ACL permit ip 192.168.10.0 255.255.255.0 any
+ip access-list extended VPN-ACL
+ permit ip 192.168.10.0 255.255.255.0 any
+exit
 
 route-map VPN-PBR permit 10
  match ip address VPN-ACL
