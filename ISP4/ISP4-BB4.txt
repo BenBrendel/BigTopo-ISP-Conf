@@ -77,6 +77,7 @@ int f0/1.25
 desc to_ISP4-SW2
 encapsulation dot1q 25
 ip address 10.0.4.59 255.255.255.248 
+ip ospf network point-to-multipoint
 mpls ip
 no shut 
 exit 
