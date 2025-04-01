@@ -125,9 +125,9 @@ router bgp 22.2
  network 103.152.126.2 mask 255.255.255.254
  network 103.152.126.20 mask 255.255.255.254
  neighbor 103.152.126.2 remote-as 1
- neighbor 103.152.126.2 update-source g0/0
+ neighbor 103.152.126.2 update-source g0/0.101
  neighbor 103.152.126.21 remote-as 4
- neighbor 103.152.126.21 update-source f0/1/0
+ neighbor 103.152.126.21 update-source g0/0.103
  neighbor 192.168.2.1 remote-as 22.2 
  neighbor 192.168.2.1 update-source lo1
  neighbor 192.168.2.2 remote-as 22.2 
