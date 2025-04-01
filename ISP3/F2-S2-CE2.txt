@@ -7,12 +7,12 @@ crypto key generate rsa modulus 2048 usage-keys
 ip ssh version 2
 
 
-int f0/1
+int g0/1
 desc to_ISP3-BD3
 ip address 103.152.126.55 255.255.255.254 
 no shut 
 
-int f0/0
+int g0/0
 desc to_Switch
 ip address 31.6.16.254 255.255.255.128
 no shut 
@@ -24,7 +24,7 @@ network 31.6.16.128 0.0.0.127 area 0
 network 103.152.126.54 0.0.0.1 area 0
 
 
-int f0/0
+int g0/0
 standby 1 ip 31.6.16.252
 standby 1 priority 100
 standby 1 preempt
