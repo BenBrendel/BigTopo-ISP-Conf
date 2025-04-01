@@ -21,10 +21,15 @@ transport input ssh telnet
 line con 0 
 logging sync 
 exec-timeout 0 0 
+exit
 
 !------------ 
 ! Interfaces 
 !------------ 
+
+logging on
+logging trap debugging
+logging host 10.0.40.100
 
 int f0/1
 desc Intern
@@ -56,8 +61,11 @@ int f0/1.25
 desc to_ISP4-SW2
 encapsulation dot1q 25
 ip address 10.0.4.60 255.255.255.248 
+ip ospf network point-to-multipoint
 mpls ip
-no shut int f0/1.44
+no shut 
+
+int f0/1.44
 desc to_Server_VLAN
 encapsulation dot1q 44
 ip address 10.0.40.50 255.255.255.0

@@ -21,11 +21,15 @@ transport input ssh telnet
 line con 0 
 logging sync 
 exec-timeout 0 0 
+exit
 
 !------------ 
 ! Interfaces 
 !------------ 
 
+logging on
+logging trap debugging
+logging host 10.0.40.100
 
 int g0/0
 desc to_F1S2CE
@@ -65,6 +69,7 @@ int g0/1.25
 desc to_ISP4-SW2
 encapsulation dot1q 25
 ip address 10.0.4.58 255.255.255.248
+ip ospf network point-to-multipoint
 mpls ip
 no shut 
 
@@ -101,14 +106,12 @@ neighbor 192.168.4.4 remote-as 4
 neighbor 192.168.4.4 update-source lo1
 network 103.152.126.42 mask 255.255.255.254
 
+ip route 31.6.14.128 255.255.255.192 103.152.126.43
+router bgp 4
+redistribute static
 
 end 
 wr 
 
 
-
-# goofy aah route zum grünen standort (ALL HAIL MEHMET CIMENLI)
-ip route 31.6.14.128 255.255.255.192 103.152.126.43
-router bgp 4
-redistribute static
 

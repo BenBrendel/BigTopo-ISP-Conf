@@ -21,16 +21,15 @@ transport input ssh telnet
 line con 0 
 logging sync 
 exec-timeout 0 0 
+exit
 
 !------------ 
 ! Interfaces 
 !------------ 
 
-int g0/0
-desc to_ISP3
-ip address 103.152.126.35 255.255.255.254
-no shut
-exit
+logging on
+logging trap debugging
+logging host 10.0.40.100
 
 int g0/2
 desc to_F3S1CE2
@@ -63,8 +62,11 @@ int g0/1.20
 desc to_ISP4-SW1
 encapsulation dot1q 20
 ip address 10.0.4.42 255.255.255.248
+ip ospf network point-to-multipoint
 mpls ip
-no shut int g0/1.44
+no shut 
+
+int g0/1.44
 desc to_Server_VLAN
 encapsulation dot1q 44
 ip address 10.0.40.3 255.255.255.0
@@ -86,7 +88,10 @@ network 192.168.4.3 0.0.0.0 area 0
 passive-interface g0/0
 passive-interface g0/2
 
+ip route 45.84.107.64 255.255.255.192 103.152.126.63
+
 router bgp 4
+redistribute static
 neighbor 192.168.4.1 remote-as 4
 neighbor 192.168.4.1 update-source lo1
 neighbor 192.168.4.2 remote-as 4
@@ -95,9 +100,6 @@ neighbor 192.168.4.4 remote-as 4
 neighbor 192.168.4.4 update-source lo1
 neighbor 192.168.4.5 remote-as 4
 neighbor 192.168.4.5 update-source lo1
-neighbor 103.152.126.34 remote-as 333
-neighbor 103.152.126.34 update-source g0/0
-network 103.152.126.34 mask 255.255.255.254
 network 103.152.126.62 mask 255.255.255.254
 
 

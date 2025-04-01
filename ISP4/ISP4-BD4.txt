@@ -21,10 +21,15 @@ transport input ssh telnet
 line con 0 
 logging sync 
 exec-timeout 0 0 
+exit
 
 !------------ 
 ! Interfaces 
 !------------ 
+
+logging on
+logging trap debugging
+logging host 10.0.40.100
 
 int g0/0
 desc to_F2S1CE
@@ -79,6 +84,7 @@ ip address 192.168.4.4 255.255.255.255
 mpls ip
 no shut
 
+ip route 31.6.16.0 255.255.255.128 103.152.126.51
 
 router ospf 1
 router-id 10.0.4.6
@@ -90,6 +96,7 @@ network 192.168.4.4 0.0.0.0 area 0
 passive-interface g0/0
 
 router bgp 4
+redistribute static
 neighbor 192.168.4.1 remote-as 4
 neighbor 192.168.4.1 update-source lo1
 neighbor 192.168.4.2 remote-as 4
