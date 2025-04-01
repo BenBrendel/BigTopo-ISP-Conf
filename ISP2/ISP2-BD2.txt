@@ -136,9 +136,3 @@ router bgp 22.2
 
 end 
 wr 
-
-
-# goofy aah route zum grünen standort (ALL HAIL MEHMET CIMENLI)
-ip route 31.6.14.0 255.255.255.128 103.152.126.41
-router bgp 22.2
-redistribute static
