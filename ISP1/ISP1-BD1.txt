@@ -40,6 +40,23 @@ des to_ISP1-BD5_vlan4
 ip add 10.0.1.14 255.255.255.254
 no shut
 
+
+int fa0/0
+no shut
+
+
+int fa0/0.100
+encapsulation dot1q 100
+des to_RZ_CE
+ip add 103.152.126.81 255.255.255.240
+no shut
+
+int fa0/0.110
+encapsulation dot1q 110
+des to_INET_FG_vlan110
+ip add 103.152.126.101 255.255.255.254
+no shut
+
 router isis
 net 49.0001.0000.0000.0001.00 
 is-type level-1
@@ -74,9 +91,6 @@ ip add 192.168.1.1 255.255.255.255
 ip router Isis
 
 
-
-
-
 mpls ip
 no shut
 
@@ -96,10 +110,16 @@ neighbor 192.168.1.4 update-source lo1
 neighbor 192.168.1.5 remote-as 1
 neighbor 192.168.1.5 update-source lo1
 
+end
+conf t
 
-# FUER SPAETER internet advertisen
 router bgp 1
-network 103.152.126.90 255.255.255.240
+network 103.152.126.80 255.255.255.240
+network 103.152.126.100 255.255.255.254
+neighbor 103.152.126.100 remote-as 47.11
+neighbor 103.152.126.100 update-source f0/0
+
+
 
 
 

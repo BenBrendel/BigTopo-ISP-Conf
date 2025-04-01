@@ -1,0 +1,17 @@
+!==
+en
+conf t
+hostname ISP-BD1
+ip domain name ISP1
+username cisco priv 15 secret cisco
+crypto key generate rsa modulus 2048 usage-keys
+ip ssh version 2
+
+end
+conf t
+
+router bgp 1
+network 103.152.126.80 255.255.255.240
+network 103.152.126.100 255.255.255.254
+neighbor 103.152.126.100 remote-as 47.11
+neighbor 103.152.126.100 update-source f0/0
