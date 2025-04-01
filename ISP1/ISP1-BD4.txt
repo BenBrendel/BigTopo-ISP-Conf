@@ -114,8 +114,8 @@ neighbor 192.168.1.5 update-source lo1
 
 
 router bgp 1
-network 103.152.126.2 255.255.255.254
-network 103.152.126.12 255.255.255.254
+network 103.152.126.2 mask 255.255.255.254
+network 103.152.126.12 mask 255.255.255.254
 neighbor 103.152.126.3 remote-as 22.2
 neighbor 103.152.126.3 update-source fa0/0.101
 neighbor 103.152.126.13 remote-as 333
