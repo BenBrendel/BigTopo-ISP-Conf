@@ -119,9 +119,12 @@ network 192.168.2.2 0.0.0.0 area 0
 passive-interface g0/0 
 passive-interface g0/0.120
 passive-interface g0/0.130
- 
+
+ip route 87.120.166.0 255.255.255.0 103.152.126.101
+ip route 31.6.14.0 255.255.255.128 103.152.126.41
 
 router bgp 22.2 
+ redistribute static
  network 103.152.126.40 mask 255.255.255.254
  network 103.152.126.100 mask 255.255.255.254
  neighbor 192.168.2.1 remote-as 22.2 
