@@ -89,7 +89,7 @@ route-map VPN-PBR permit 10
  set interface Tunnel0
 exit
 
-interface GigabitEthernet0/1
+interface GigabitEthernet0/1.331
  ip policy route-map VPN-PBR
 exit
  
