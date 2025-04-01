@@ -27,13 +27,19 @@ exec-timeout 0 0
 !------------ 
 
 int f0/0
+desc to_outside
+no shut
+
+int f0/0.103
 desc to_ISP2
+encapsulation dot1q 103
 ip address 103.152.126.21 255.255.255.254
 no shut
 exit
 
-int f0/3/0
-desc to_ISP3no switchport
+int f0/0.104
+desc to_ISP3
+encapsulation dot1q 104
 ip address 103.152.126.31 255.255.255.254
 no shut
 exit
@@ -62,7 +68,9 @@ desc to_ISP4-BB1
 encapsulation dot1q 3
 ip address 10.0.4.8 255.255.255.254 
 mpls ip
-no shut int f0/1.44
+no shut 
+
+int f0/1.44
 desc to_Server_VLAN
 encapsulation dot1q 44
 ip address 10.0.40.1 255.255.255.0
@@ -82,7 +90,8 @@ network 10.0.4.2 0.0.0.1 area 0
 network 10.0.4.8 0.0.0.1 area 0
 network 192.168.4.1 0.0.0.0 area 0
 passive-interface f0/0
-passive-interface f0/3/0
+passive-interface f0/0.103
+passive-interface f0/0.104
 
 router bgp 4
 neighbor 192.168.4.2 remote-as 4
@@ -94,9 +103,9 @@ neighbor 192.168.4.4 update-source lo1
 neighbor 192.168.4.5 remote-as 4
 neighbor 192.168.4.5 update-source lo1
 neighbor 103.152.126.20 remote-as 22.2
-neighbor 103.152.126.20 update-source f0/0
+neighbor 103.152.126.20 update-source f0/0.103
 neighbor 103.152.126.30 remote-as 333
-neighbor 103.152.126.30 update-source f0/3/0
+neighbor 103.152.126.30 update-source f0/0.104
 network 103.152.126.20 mask 255.255.255.254
 network 103.152.126.30 mask 255.255.255.254
 
