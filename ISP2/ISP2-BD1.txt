@@ -80,16 +80,18 @@ int lo0
 ip address 192.168.22.1 255.255.255.255
 exit
 
-key chain eigrp-chain
-key 1
-key-string cisco
-exit
+key chain eigrp-chain 
+key 1 
+key-string cisco 
+exit 
 
 int tunnel0
 ip address 172.16.2.1 255.255.255.0
-ip redirects
+no ip redirects
+ip mtu 1440
+ip nhrp authentication cisco
+ip nhrp map multicast dynamic
 ip nhrp network-id 1
-ip nhrp redirect
 tunnel source lo0
 tunnel mode gre multipoint
 ip ospf network point-to-multipoint

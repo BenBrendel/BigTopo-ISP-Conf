@@ -81,7 +81,7 @@ no shut
 int g0/0.130
 desc to_maecciCE
 encapsulation dot1q 130
-ip address 103.152.126.100 255.255.255.254
+ip address 103.152.126.120 255.255.255.254
 no shut
 
 int lo1
@@ -97,16 +97,20 @@ key 1
 key-string cisco 
 exit 
 
-int tunnel0 
+interface Tunnel0
 ip address 172.16.2.2 255.255.255.0 
-ip nhrp network-id 1 
-ip nhrp nhs 172.16.2.1 
-ip nhrp shortcut 
+no ip redirects
+ip mtu 1440
+ip nhrp authentication cisco
+ip nhrp map multicast dynamic
 ip nhrp map 172.16.2.1 192.168.22.1 
-ip nhrp map multicast 192.168.22.1 
+ip nhrp map multicast 192.168.22.1
+ip nhrp nhs 172.16.2.1
+ip nhrp network-id 1
 tunnel source lo0
-ip ospf network point-to-multipoint 
-exit 
+tunnel mode gre multipoint
+ip ospf network point-to-multipoint
+exit
 
 router eigrp 100 
 network 10.0.2.0 0.0.0.1 
@@ -131,7 +135,7 @@ ip route 31.6.14.0 255.255.255.128 103.152.126.41
 router bgp 22.2 
  redistribute static
  network 103.152.126.40 mask 255.255.255.254
- network 103.152.126.100 mask 255.255.255.254
+ network 103.152.126.120 mask 255.255.255.254
  neighbor 192.168.2.1 remote-as 22.2 
  neighbor 192.168.2.1 update-source lo1
  neighbor 192.168.2.3 remote-as 22.2 
