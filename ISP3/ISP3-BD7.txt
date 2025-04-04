@@ -16,6 +16,7 @@ transport input ssh telnet
 
 int f0/0
 ip add 103.152.126.60 255.255.255.254
+no shut
 exit
 
 int f0/1
@@ -69,6 +70,8 @@ router ospf 10
 router bgp 66
 bgp confederation identifier 333
 bgp confederation peers 33
+
+network 103.152.126.60 mask 255.255.255.254
 
 neighbor 192.168.3.6 remote-as 66
 neighbor 192.168.3.6 update-source lo1
