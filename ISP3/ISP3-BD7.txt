@@ -66,7 +66,6 @@ router ospf 10
  network 192.168.3.7 0.0.0.0 area 0
  network 10.0.3.40 0.0.0.7 area 0
 
-
 router bgp 66
 bgp confederation identifier 333
 bgp confederation peers 33
@@ -96,5 +95,13 @@ conf t
 logging on
 logging host 100.0.66.100
 logging trap 7
+
+
+
+end
+conf t
+ip route 45.84.107.0 255.255.255.192 103.152.126.61
+router bgp 66
+redistribute static
 
 

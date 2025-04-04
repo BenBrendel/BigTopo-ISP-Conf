@@ -97,10 +97,19 @@ exit
 end
 conf t
 
+
+int g0/0
+ip add 103.152.126.44 255.255.255.254
+no shut
+
 ip route 31.6.14.192 255.255.255.192 103.152.126.45
 
 router bgp 1
 redistribute static
+
+
+router bgp 1
+network 103.152.126.44 mask 255.255.255.254
 
 
 
