@@ -102,10 +102,18 @@ logging on
 logging host 100.0.33.100
 logging trap 7
 
+
 int f0/1.33
 encapsulation dot1q 33
 desc SERVER
 ip add 10.0.33.4 255.255.255.0
+
+
+end
+conf t
+ip route 45.84.107.128 255.255.255.128 103.152.126.65
+router bgp 33
+redistribute static
 
 
 

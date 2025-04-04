@@ -14,7 +14,7 @@ int f0/0
 ip add 31.6.14.254 255.255.255.192
 no shut
 
-int f0/1
+int f1/0
 ip add 103.152.126.45 255.255.255.254
 no shut
 
@@ -34,7 +34,7 @@ ip nhrp map 172.16.0.1 103.152.126.41
 ip nhrp map multicast 103.152.126.41
 ip nhrp network-id 1
 ip nhrp nhs 172.16.0.1
-tunnel source f0/1
+tunnel source f1/0
 tunnel destination 103.152.126.41
 
 interface Tunnel 0
