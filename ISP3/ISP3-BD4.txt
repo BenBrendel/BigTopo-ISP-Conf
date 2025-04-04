@@ -14,6 +14,9 @@ logging sync
 exec-timeout 0 0 
 transport input ssh telnet 
 
+int f0/0
+ip add 103.152.126.64 255.255.255.254
+no shut
 
 int f0/1
 desc Intern
@@ -103,3 +106,6 @@ int f0/1.33
 encapsulation dot1q 33
 desc SERVER
 ip add 10.0.33.4 255.255.255.0
+
+
+

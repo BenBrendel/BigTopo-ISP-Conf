@@ -99,7 +99,7 @@ ip add 103.152.126.11 255.255.255.254
 no shut
 
 
-router bgp 1
+router bgp 33
 network 103.152.126.10 mask 255.255.255.254
 neighbor 103.152.126.10 remote-as 1
 neighbor 103.152.126.10 update-source f0/0

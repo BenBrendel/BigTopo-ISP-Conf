@@ -23,7 +23,7 @@ exit
 int f0/1.6
 encapsulation dot1q 6
 desc to_ISP3-BB1
-ip add 10.0.3.19 255.255.254
+ip add 10.0.3.19 255.255.255.254
 no shut 
 
 int f0/1.9
