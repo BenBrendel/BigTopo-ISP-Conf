@@ -81,16 +81,20 @@ key 1
 key-string cisco 
 exit 
 
-int tunnel0 
+interface Tunnel0
 ip address 172.16.2.4 255.255.255.0 
-ip nhrp network-id 1 
-ip nhrp nhs 172.16.2.1 
-ip nhrp shortcut 
+no ip redirects
+ip mtu 1440
+ip nhrp authentication cisco
+ip nhrp map multicast dynamic
 ip nhrp map 172.16.2.1 192.168.22.1 
-ip nhrp map multicast 192.168.22.1 
+ip nhrp map multicast 192.168.22.1
+ip nhrp nhs 172.16.2.1
+ip nhrp network-id 1
 tunnel source lo0
-ip ospf network point-to-multipoint 
-exit 
+tunnel mode gre multipoint
+ip ospf network point-to-multipoint
+exit
 
 router eigrp 100 
 network 10.0.2.6 0.0.0.1 
