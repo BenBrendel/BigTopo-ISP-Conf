@@ -28,7 +28,7 @@ exec-timeout 0 0
 
 int g0/0
 desc to_ISP2-BD2
-ip address 103.152.126.101 255.255.255.254 
+ip address 103.152.126.121 255.255.255.254 
 no shut 
 
 int g0/1
@@ -37,7 +37,7 @@ ip address 87.120.166.254 255.255.255.0
 no shut
 exit
 
-ip route 0.0.0.0 0.0.0.0 103.152.126.100
+ip route 0.0.0.0 0.0.0.0 103.152.126.120
 
 end 
 wr 

@@ -81,7 +81,7 @@ no shut
 int g0/0.130
 desc to_maecciCE
 encapsulation dot1q 130
-ip address 103.152.126.100 255.255.255.254
+ip address 103.152.126.120 255.255.255.254
 no shut
 
 int lo1
@@ -135,7 +135,7 @@ ip route 31.6.14.0 255.255.255.128 103.152.126.41
 router bgp 22.2 
  redistribute static
  network 103.152.126.40 mask 255.255.255.254
- network 103.152.126.100 mask 255.255.255.254
+ network 103.152.126.120 mask 255.255.255.254
  neighbor 192.168.2.1 remote-as 22.2 
  neighbor 192.168.2.1 update-source lo1
  neighbor 192.168.2.3 remote-as 22.2 
