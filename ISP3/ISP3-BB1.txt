@@ -1,13 +1,14 @@
 en 
 conf t 
 hostname ISP3-BB1 
-no ip domain-lookup 
 banner motd #Unauthorized Access is strictly prohibited except for the one and only MEHMET CIMENLI# 
 username cisco priv 15 
 username cisco algorithm-type scrypt secret cisco 
 ip domain-name ISP-RZ 
 crypto key generate rsa usage-keys modulus 1024 
 ip ssh version 2 
+ip name-server 10.0.33.120
+ip domain-lookup
 
 line vty 0 924 
 logging sync 
